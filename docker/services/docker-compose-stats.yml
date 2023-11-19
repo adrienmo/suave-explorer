@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  blockscout-stats:
+    image: flashbots/blockscout-stats:1.4.1
+    build: 
+      context: https://github.com/adrienmo/blockscout-rs.git#d30477f60576bb888b37f3f67bcea4f9708b804e:/stats
+      dockerfile: ./Dockerfile
+    platform: linux/amd64
+    pull_policy: always
+    restart: always
+    container_name: 'blockscout-stats'
+    env_file:
+      -  ../envs/common-stats.env
+    environment:
+      - STATS__DB_URL=postgres://blockscout:ceWb1MeLBEeOIfk65gU8EjF8@blockscout-db:5432/stats
+      - STATS__BLOCKSCOUT_DB_URL=postgresql://blockscout:ceWb1MeLBEeOIfk65gU8EjF8@blockscout-db:5432/blockscout?ssl=false
+      - STATS__CREATE_DATABASE=true
+      - STATS__RUN_MIGRATIONS=true

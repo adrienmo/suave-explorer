@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  blockscout-frontend:
+    image: flashbots/blockscout-frontend:1.17.0
+    build: 
+      context: https://github.com/adrienmo/blockscout-frontend.git#e38e185c70f82f5c621961faeac53b3d19eb79de
+      dockerfile: ./Dockerfile
+    pull_policy: always
+    restart: always
+    container_name: 'blockscout-frontend'
+    env_file:
+      -  ../envs/common-frontend.env

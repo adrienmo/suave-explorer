@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  blockscout-backend:
+    image: flashbots/blockscout-backend:5.3.1
+    build: 
+      context: https://github.com/adrienmo/blockscout.git#03ce60a91f4b6aefa3239a743a5a4e97a7577571
+      dockerfile: ./docker/Dockerfile
+      args:
+        CACHE_EXCHANGE_RATES_PERIOD: ""
+        API_V1_READ_METHODS_DISABLED: "false"
+        DISABLE_WEBAPP: "false"
+        CACHE_TOTAL_GAS_USAGE_COUNTER_ENABLED: ""
+        ADMIN_PANEL_ENABLED: "false"
+        CACHE_ADDRESS_WITH_BALANCES_UPDATE_INTERVAL: ""
+        BLOCKSCOUT_VERSION: "v5.3.1"
+        RELEASE_VERSION: "5.3.1"
+        CHAIN_TYPE: "suave"
+    pull_policy: always
+    restart: always
+    container_name: 'blockscout-backend'
+    command: sh -c "bin/blockscout eval \"Elixir.Explorer.ReleaseTasks.create_and_migrate()\" && bin/blockscout start"
+    env_file:
+      -  ../envs/common-blockscout.env
+    volumes:
+      - ./logs/:/app/logs/
