@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   blockscout-stats:
-    image: flashbots/blockscout-stats:1.4.1
+    image: flashbots/blockscout-stats:0.1.1-1.4.1
     build: 
       context: https://github.com/adrienmo/blockscout-rs.git#d30477f60576bb888b37f3f67bcea4f9708b804e:/stats
       dockerfile: ./Dockerfile
