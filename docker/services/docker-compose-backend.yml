@@ -2,10 +2,13 @@ version: '3.8'
 
 services:
   blockscout-backend:
-    image: flashbots/blockscout-backend:0.1.1-5.3.1
+    image: flashbots/blockscout-backend:0.1.2-5.3.1
     build: 
       context: https://github.com/adrienmo/blockscout.git#03ce60a91f4b6aefa3239a743a5a4e97a7577571
       dockerfile: ./docker/Dockerfile
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
       args:
         CACHE_EXCHANGE_RATES_PERIOD: ""
         API_V1_READ_METHODS_DISABLED: "false"
@@ -16,6 +19,7 @@ services:
         BLOCKSCOUT_VERSION: "v5.3.1"
         RELEASE_VERSION: "5.3.1"
         CHAIN_TYPE: "suave"
+        ERL_FLAGS: "+JPperf true"
     pull_policy: always
     restart: always
     container_name: 'blockscout-backend'

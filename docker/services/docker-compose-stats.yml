@@ -6,7 +6,7 @@ services:
     build: 
       context: https://github.com/adrienmo/blockscout-rs.git#d30477f60576bb888b37f3f67bcea4f9708b804e:/stats
       dockerfile: ./Dockerfile
-    platform: linux/amd64
+      platform: linux/amd64
     pull_policy: always
     restart: always
     container_name: 'blockscout-stats'

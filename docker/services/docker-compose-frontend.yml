@@ -6,6 +6,9 @@ services:
     build: 
       context: https://github.com/adrienmo/blockscout-frontend.git#bb724d50901f598176ab7c0e0a4e7320591a1be0
       dockerfile: ./Dockerfile
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
     pull_policy: always
     restart: always
     container_name: 'blockscout-frontend'
