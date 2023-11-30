@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
   blockscout-backend:
-    image: flashbots/blockscout-backend:0.1.2-5.3.1
+    image: flashbots/blockscout-backend:${DOCKER_TAG:-latest}-5.3.1
     build: 
-      context: https://github.com/adrienmo/blockscout.git#03ce60a91f4b6aefa3239a743a5a4e97a7577571
+      context: https://github.com/adrienmo/blockscout.git#a6792bb5ccfadf71674ecdef5833281fd57a823a
       dockerfile: ./docker/Dockerfile
       platforms:
         - "linux/amd64"
@@ -20,6 +20,8 @@ services:
         RELEASE_VERSION: "5.3.1"
         CHAIN_TYPE: "suave"
         ERL_FLAGS: "+JPperf true"
+      cache_from: type=gha
+      cache_to: type=gha,mode=max
     pull_policy: always
     restart: always
     container_name: 'blockscout-backend'

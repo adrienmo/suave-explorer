@@ -2,13 +2,15 @@ version: '3.8'
 
 services:
   blockscout-frontend:
-    image: flashbots/blockscout-frontend:0.1.2-1.17.0
+    image: flashbots/blockscout-frontend:${DOCKER_TAG:-latest}-1.17.0
     build: 
-      context: https://github.com/adrienmo/blockscout-frontend.git#bb724d50901f598176ab7c0e0a4e7320591a1be0
+      context: https://github.com/adrienmo/blockscout-frontend.git#4e1ae657661c876f150837b1026485b8f6ee98bf
       dockerfile: ./Dockerfile
       platforms:
         - "linux/amd64"
         - "linux/arm64"
+      cache_from: type=gha
+      cache_to: type=gha,mode=max
     pull_policy: always
     restart: always
     container_name: 'blockscout-frontend'

@@ -2,14 +2,18 @@ version: '3.8'
 
 services:
   blockscout-stats:
-    image: flashbots/blockscout-stats:0.1.2-1.4.1
+    image: flashbots/blockscout-stats:${DOCKER_TAG:-latest}-1.5.0
     build: 
-      context: https://github.com/adrienmo/blockscout-rs.git#d30477f60576bb888b37f3f67bcea4f9708b804e:/stats
+      context: https://github.com/adrienmo/blockscout-rs.git#4fa9ba7cf7fea757f6bfefd159c0425183f80d3b:/stats
       dockerfile: ./Dockerfile
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+      cache_from: type=gha
+      cache_to: type=gha,mode=max
     pull_policy: always
     restart: always
     container_name: 'blockscout-stats'
-    platform: linux/amd64
     env_file:
       -  ../envs/common-stats.env
     environment:

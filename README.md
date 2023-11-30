@@ -24,6 +24,16 @@ make explorer-down
 
 ```
 make explorer-build
+APP=blockscout-stats make explorer-build
 ```
 
 This will force build the images for the explorer, even if they are available on the docker registry. It will not use already available cache and will build from scratch. This can be useful to create new versions of the images to then push them to the docker registry.
+
+#### Build and push the explorer images
+
+```
+make explorer-build-and-push
+APP=blockscout-stats make explorer-build-and-push
+```
+
+This will build the images for the explorer and push it to the registry.

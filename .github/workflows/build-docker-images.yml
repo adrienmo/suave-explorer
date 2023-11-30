@@ -2,13 +2,15 @@ name: ci
 
 on:
   push:
-    branches:
-      - 'main'
-      - 'addci'
+    tags:
+      - '*'
 
 jobs:
   docker:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: ['blockscout-stats', 'blockscout-frontend', 'blockscout-backend']
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -27,3 +29,6 @@ jobs:
       - 
         name: Build images and push to the registry
         run: PATH=/usr/libexec/docker/cli-plugins:${PATH} make explorer-build-and-push
+        env:
+          APP: ${{ matrix.app }}
+          DOCKER_TAG: ${{ github.ref }}
